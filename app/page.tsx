@@ -12,10 +12,7 @@ export default function Page() {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
-      [event.target.name]:
-        event.target.type === "number"
-          ? parseFloat(event.target.value)
-          : event.target.value,
+      [event.target.name]: event.target.value,
     })
   }
 
