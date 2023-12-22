@@ -7,8 +7,33 @@ export default function Page() {
     name: "Benny",
     email: "benny1123@hotmail.com",
     age: 5,
-    roles: [{ name: "", permissions: "BASIC", authorities: "GET, POST" }],
+    roles: [
+      { name: "Benny", permissions: "BASIC", authorities: "GET, POST" },
+      {
+        name: "Frida",
+        permissions: "ADMIN",
+        authorities: "GET, POST, PUT, DELETE",
+      },
+    ],
   })
+
+  function addCourse(
+    roleName: string,
+    rolePermissions: string,
+    roleAuthorities: string
+  ) {
+    setFormData({
+      ...formData,
+      roles: [
+        ...formData.roles,
+        {
+          name: roleName,
+          permissions: rolePermissions,
+          authorities: roleAuthorities,
+        },
+      ],
+    })
+  }
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
