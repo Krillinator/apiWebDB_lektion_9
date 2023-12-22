@@ -1,5 +1,20 @@
-import { User } from "@/utils/types/user"
+import { Roles, User } from "@/utils/types/user"
 import mongoose, { Schema } from "mongoose"
+
+const rolesSchema = new Schema<Roles>({
+  name: {
+    type: String,
+    required: true,
+  },
+  permissions: {
+    type: String,
+    required: true,
+  },
+  authorities: {
+    type: String,
+    required: true,
+  },
+})
 
 const userSchema = new Schema<User>(
   {
@@ -15,6 +30,9 @@ const userSchema = new Schema<User>(
     age: {
       type: Number,
       required: true,
+    },
+    roles: {
+      type: [rolesSchema],
     },
   },
   { strict: true }

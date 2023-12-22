@@ -4,16 +4,16 @@ import { User } from "@/utils/types/user"
 
 export async function POST(request: NextRequest) {
   try {
-    const { name, email, age }: User = await request.json() // Parse JSON from the request body
+    const { name, email, age, password }: User = await request.json() // Parse JSON from the request body
 
     // Validate the request body
-    if (!name || !email || !age) {
+    if (!name || !email || !age || !password.password) {
       return Response.json({ message: "Invalid request body" }, { status: 400 })
     }
 
     // Create a new user using the UserModel
     // TODO - Check datatype
-    const newUser = await UserModel.create({ name, email, age })
+    const newUser = await UserModel.create({ name, email, age, password })
 
     return Response.json(
       { message: "User created successfully", user: newUser },
