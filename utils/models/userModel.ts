@@ -1,7 +1,7 @@
-import { Roles, User } from "@/utils/types/user"
+import { Role, User } from "@/utils/types/user"
 import mongoose, { Schema } from "mongoose"
 
-const rolesSchema = new Schema<Roles>({
+const rolesSchema = new Schema<Role>({
   name: {
     type: String,
     required: true,

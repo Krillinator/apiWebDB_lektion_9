@@ -1,5 +1,5 @@
 "use client"
-import { User } from "@/utils/types/user"
+import { Role, User } from "@/utils/types/user"
 import React, { ChangeEvent, FormEvent, useState } from "react"
 
 export default function Page() {
@@ -17,23 +17,12 @@ export default function Page() {
     ],
   })
 
-  function addCourse(
-    roleName: string,
-    rolePermissions: string,
-    roleAuthorities: string
-  ) {
-    setFormData({
-      ...formData,
-      roles: [
-        ...formData.roles,
-        {
-          name: roleName,
-          permissions: rolePermissions,
-          authorities: roleAuthorities,
-        },
-      ],
-    })
-  }
+  // Courses
+  const [role, setRole] = useState<Role>({
+    name: "",
+    permissions: "",
+    authorities: "",
+  })
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -46,7 +35,17 @@ export default function Page() {
     })
   }
 
+  // Personally don't like this
+  const handleRoleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const newRole: Role = { ...role, [event.target.name]: event.target.value }
+
+    setRole(newRole)
+  }
+
   const handleSubmit = async (event: FormEvent) => {
+    // Add new role to formData
+    setFormData({ ...formData, roles: [...formData.roles, role] })
+
     event.preventDefault()
 
     try {
@@ -144,7 +143,37 @@ export default function Page() {
           <option value="Admin">Admin Permissions</option>
         </select>
 
+        {/* NEW OBJECT - ROLE */}
+        <p>Add Role</p>
+        <p>Name</p>
+        <input
+          type="text"
+          name="name"
+          placeholder="Admin"
+          value={role.name}
+          onChange={handleRoleChange}
+          required
+        />
+
+        <p>Permissions</p>
+        <input
+          type="text"
+          name="permissions"
+          placeholder="GET, POST"
+          value={role.permissions}
+          onChange={handleRoleChange}
+          required
+        />
+
         <p>Authorities</p>
+        <input
+          type="text"
+          name="authorities"
+          placeholder="BASIC or ADMIN"
+          value={role.authorities}
+          onChange={handleRoleChange}
+          required
+        />
 
         <button type="submit">Submit</button>
       </form>

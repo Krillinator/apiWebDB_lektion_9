@@ -2,11 +2,11 @@ export interface User {
   name: string
   email: string
   age: number
-  roles: Roles[]
+  roles: Role[]
 }
 
-export interface Roles {
-  name: String
-  permissions: String
-  authorities: String
+export interface Role {
+  name: string
+  permissions: string
+  authorities: string
 }
