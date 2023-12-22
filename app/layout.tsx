@@ -16,16 +16,6 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   // Connect to the MongoDB database when the component mounts
-  const connectToDatabase = async () => {
-    try {
-      await dbConnect()
-      console.log("Connected to the database")
-    } catch (error) {
-      console.error("Error connecting to the database:", error)
-    }
-  }
-
-  connectToDatabase()
 
   return (
     <html lang="en">
