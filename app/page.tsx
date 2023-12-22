@@ -7,13 +7,17 @@ export default function Page() {
     name: "Benny",
     email: "benny1123@hotmail.com",
     age: 5,
-    roles: [{ name: "", permissions: "", authorities: "" }],
+    roles: [{ name: "", permissions: "BASIC", authorities: "GET, POST" }],
   })
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = event.target
+
     setFormData({
       ...formData,
-      [event.target.name]: event.target.value,
+      [name]: value,
     })
   }
 
@@ -81,19 +85,20 @@ export default function Page() {
 
         <label htmlFor="roles">Roles:</label>
         <p>Name</p>
+
         <select
-          defaultValue="Admin"
-          value={formData.roles[0].name.toLocaleLowerCase()}
-          name="name"
-          onChange={(event) => {
+          value={formData.roles[0].name as string}
+          onChange={(e) => {
             setFormData({
               ...formData,
-              roles: [
-                { name: event.target.value, permissions: "", authorities: "" },
-              ],
+              roles: [{ ...formData.roles[0], name: e.target.value }], // map
             })
           }}
+          required
         >
+          <option value="" disabled>
+            Select Role
+          </option>
           <option value="Admin">Admin</option>
           <option value="User">User</option>
           <option value="Guest">Guest</option>

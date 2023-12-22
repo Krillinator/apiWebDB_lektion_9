@@ -29,7 +29,9 @@ body {
 .my-inputs {
   color: black;
 }
-
+select {
+  @apply my-inputs;
+}
 input {
   @apply my-inputs;
 }
